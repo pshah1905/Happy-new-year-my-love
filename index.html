@@ -8,48 +8,59 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
+*{box-sizing:border-box}
+
 body{
 margin:0;
 background:linear-gradient(135deg,#0b0b2b,#1a0033);
 font-family:'Quicksand',sans-serif;
 color:white;
 overflow:hidden;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
 }
 
 .container{
+width:100%;
 max-width:420px;
-margin:auto;
-padding:20px;
-text-align:center;
+padding:18px;
 }
 
 .card{
-background:rgba(255,255,255,0.08);
+background:rgba(255,255,255,0.09);
 border-radius:26px;
 padding:22px;
-margin-top:20px;
 box-shadow:0 25px 60px rgba(0,0,0,.5);
-animation:fade .7s ease;
+text-align:center;
+animation:fade .6s ease;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(15px)}
+from{opacity:0;transform:translateY(10px)}
 to{opacity:1;transform:none}
 }
 
 h2{
 font-family:'Pacifico',cursive;
 color:#ff7ac8;
+margin-bottom:10px;
 }
 
 .name{color:#ffb3de;font-weight:700}
 
-p{font-size:15.5px;line-height:1.7}
+p{
+font-size:15.5px;
+line-height:1.7;
+}
 
 img{
 width:100%;
 border-radius:18px;
-margin-top:12px;
+margin-top:14px;
+max-height:55vh;
+object-fit:contain;
 }
 
 button{
@@ -57,17 +68,26 @@ background:#ff4fa3;
 color:white;
 border:none;
 border-radius:18px;
-padding:12px 20px;
+padding:12px 22px;
 font-size:16px;
 cursor:pointer;
-margin-top:16px;
+margin-top:18px;
+}
+
+input{
+width:100%;
+padding:10px;
+border-radius:14px;
+border:none;
+margin-top:10px;
+font-size:16px;
 }
 
 .heart{
 position:fixed;
 top:-10px;
 font-size:18px;
-opacity:.25;
+opacity:.22;
 animation:fall linear infinite;
 pointer-events:none;
 }
@@ -78,7 +98,7 @@ to{transform:translateY(110vh)}
 
 .big-love{
 font-family:'Dancing Script',cursive;
-font-size:48px;
+font-size:44px;
 color:#ff9dd1;
 animation:pulse 1.6s infinite;
 }
@@ -98,18 +118,7 @@ animation:pulse 1.6s infinite;
 </audio>
 
 <div class="container">
-
-<!-- LOCK -->
-<div class="card" id="lock">
-<h2>Only for Uddipana 💗</h2>
-<p>Password hint: what you are to me 😌</p>
-<input id="pass" type="password" style="width:100%;padding:10px;border-radius:14px">
-<button onclick="unlock()">Unlock</button>
-<p id="err" style="color:#ffb3de"></p>
-</div>
-
-<div id="stage" hidden></div>
-
+<div id="stage"></div>
 </div>
 
 <script>
@@ -121,88 +130,61 @@ const stages = [
 `<h2>Happy New Year ✨</h2>
 <p style="font-family:'Dancing Script',cursive;font-size:18px">
 As 2026 begins…<br>
-I want you to read this slowly 💖
+I made something just for you 💖
 </p>
 <button onclick="next()">Go on…</button>`,
 
 `<p style="font-family:'Dancing Script',cursive;font-size:18px">
 Meeting you was completely unexpected, <span class="name">Uddipana</span>.<br><br>
-I never thought I’d fall for anyone again.<br>
-I never thought I’d feel like myself again.<br><br>
-But somehow… you did that ✨
+I never thought I’d fall for anyone again…<br>
+yet here I am 💫
 </p>
 <button onclick="next()">Next</button>`,
 
 `<p>
-You don’t even realise when it happened.<br>
-One conversation…<br>
-one laugh…<br>
-and suddenly you felt like home 🏠💗
-</p>
-<button onclick="next()">Next</button>`,
-
-`<p>
-I still smile remembering how naturally we connected.<br>
-No pretending.<br>
-No forcing.<br>
-Just us 😌
+Somehow, without trying,<br>
+you made me feel like myself again.<br>
+Like home 🏠💗
 </p>
 <button onclick="next()">Next</button>`,
 
 `<img src="photo6.jpg">
 <p>
-That brown and that smile 🤎<br>
-Soft, warm, effortless.<br>
+That brown… that smile 🤎<br>
 Lovely as always.
-</p>
-<button onclick="next()">Next</button>`,
-
-`<p>
-I don’t say this often…<br>
-but you make my worst days feel lighter 🌙
 </p>
 <button onclick="next()">Next</button>`,
 
 `<img src="photo7.jpg"><img src="photo8.jpg">
 <p>
 Orange saree, mehendi & bangles 😭🧡<br>
-Traditional looks were never meant to look THIS good.
+Traditional never looked this beautiful.
 </p>
 <button onclick="next()">Next</button>`,
 
 `<p>
 I blush when my parents tease me about you 🙈<br>
-And I secretly love it.
+And yes… I love it.
 </p>
 <button onclick="next()">Next</button>`,
 
 `<p>
 I still remember the nickname my mom gave you…<br>
-<b>Pannu</b> 💕<br>
-That name feels warm.
+<b>Pannu</b> 💕
 </p>
 <button onclick="next()">Next</button>`,
 
 `<img src="photo9.jpg">
 <p>
 That pink saree ✨<br>
-You looked like a fairy I didn’t want to stop staring at.
-</p>
-<button onclick="next()">Next</button>`,
-
-`<p>
-Sometimes I imagine small moments with you…<br>
-quiet mornings…<br>
-shared smiles…<br>
-nothing fancy — just real 💗
+You looked like a fairy.
 </p>
 <button onclick="next()">Next</button>`,
 
 `<img src="photo10.jpg">
 <p>
-I wish I was there…<br>
-under that blanket…<br>
-pulling you closer 🥺
+Sometimes I wish I was there…<br>
+under that blanket… with you 🥺
 </p>
 <button onclick="next()">Next</button>`,
 
@@ -216,7 +198,7 @@ You make me feel chosen.
 `<img src="photo12.jpg">
 <p>
 Purple, earrings & that lipstick 💜<br>
-Yeah… I forgot how to function.
+Yeah… wow.
 </p>
 <button onclick="next()">Next</button>`,
 
@@ -228,53 +210,37 @@ No wonder I get distracted when you call 😂
 <button onclick="next()">One last thing…</button>`,
 
 `<p style="font-size:18px">
-I want to ask you something…<br>
-and please answer honestly 🥺
+I want to ask you something… 🥺
 </p>
 <button onclick="question()">Okay…</button>`
 ];
 
-function unlock(){
-if(!triedOnce && pass.value!=="Baby"){
-triedOnce=true;
-err.innerText="Hmm… dramatic pause 😌 loading feelings…";
-return;
-}
-if(pass.value==="Baby"){
-lock.hidden=true;
-stage.hidden=false;
-music.play();
-startHearts();
-next();
-}else{
-err.innerText="Nope 😏 try again";
-}
-}
-
-function next(){
-if(index>=stages.length) return;
+function show(html){
+const stage=document.getElementById("stage");
+stage.innerHTML="";
 const c=document.createElement("div");
 c.className="card";
-c.innerHTML=stages[index++];
+c.innerHTML=html;
 stage.appendChild(c);
 }
 
+function next(){
+if(index < stages.length){
+show(stages[index++]);
+}
+}
+
 function question(){
-const c=document.createElement("div");
-c.className="card";
-c.innerHTML=`
+show(`
 <h2>Uddipana…</h2>
 <p>Will you be with me forever? 💖</p>
 <button onclick="no()">No 😤</button>
 <button onclick="yes()">Yes, of course 💗</button>
-`;
-stage.appendChild(c);
+`);
 }
 
 function no(){
-const c=document.createElement("div");
-c.className="card";
-c.innerHTML=`
+show(`
 <h2>😠 Hey!</h2>
 <p>
 Nice try.<br>
@@ -282,22 +248,18 @@ I’m not leaving you.<br>
 Try again 😌
 </p>
 <button onclick="question()">Okay 🙄</button>
-`;
-stage.appendChild(c);
+`);
 }
 
 function yes(){
-const c=document.createElement("div");
-c.className="card";
-c.innerHTML=`
+show(`
 <div class="big-love">I LOVE YOU 💖</div>
 <p>
 Happy New Year, <span class="name">Uddipana</span> ✨<br>
 Thank you for choosing me.<br>
 Let’s enter 2026 together 🥂
 </p>
-`;
-stage.appendChild(c);
+`);
 startHearts(true);
 }
 
@@ -307,8 +269,33 @@ let h=document.createElement("div");
 h.className="heart";
 h.innerText="💖";
 h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(8+Math.random()*10)+"s";
+h.style.animationDuration=(9+Math.random()*10)+"s";
 document.body.appendChild(h);
+}
+}
+
+show(`
+<h2>Only for Uddipana 💗</h2>
+<p>Password hint: what you are to me 😌</p>
+<input id="pass" type="password">
+<button onclick="unlock()">Unlock</button>
+<p id="err" style="color:#ffb3de"></p>
+`);
+
+function unlock(){
+const pass=document.getElementById("pass").value;
+if(!triedOnce && pass!=="Baby"){
+triedOnce=true;
+document.getElementById("err").innerText="Hmm… dramatic pause 😌 loading feelings…";
+return;
+}
+if(pass==="Baby"){
+music.play();
+startHearts();
+index=0;
+next();
+}else{
+document.getElementById("err").innerText="Nope 😏 try again";
 }
 }
 </script>
