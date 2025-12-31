@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Entering 2026 With Uddipana 💖</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+background:linear-gradient(135deg,#fff1f8,#eef7ff);
+font-family:'Quicksand',sans-serif;
+overflow-x:hidden;
+}
+
+.section{
+max-width:440px;
+margin:30px auto;
+background:white;
+border-radius:28px;
+padding:24px;
+box-shadow:0 25px 50px rgba(0,0,0,.2);
+animation:fade .9s ease;
+}
+
+@keyframes fade{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1;transform:none}
+}
+
+h2{
+font-family:'Pacifico',cursive;
+color:#ff3b8d;
+text-align:center;
+}
+
+.name{
+color:#ff1f78;
+font-weight:700;
+}
+
+p{
+font-size:15.8px;
+line-height:1.75;
+}
+
+img{
+width:100%;
+border-radius:22px;
+margin:14px 0;
+}
+
+.double{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px;
+}
+
+.letter{
+font-family:'Dancing Script',cursive;
+background:#fff6fb;
+border:2px dashed #ffb6d5;
+padding:18px;
+border-radius:18px;
+}
+
+button{
+background:#ff4d8d;
+color:white;
+border:none;
+border-radius:18px;
+padding:12px 16px;
+font-size:16px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button.alt{
+background:#ffd6e6;
+color:#ff2b78;
+}
+
+.hidden{display:none}
+
+.big-love{
+font-family:'Dancing Script',cursive;
+font-size:54px;
+text-align:center;
+color:#ff2b88;
+animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1)}
+50%{transform:scale(1.1)}
+100%{transform:scale(1)}
+}
+
+.snow{
+position:fixed;
+top:-10px;
+color:white;
+animation:snowfall linear infinite;
+}
+
+@keyframes snowfall{
+to{transform:translateY(110vh)}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- LOCK -->
+<div class="section" id="lock">
+<h2>🔒 Just for you, Uddipana</h2>
+<p>Password hint: what you are to me 😌</p>
+<input id="pass" type="password" style="width:100%;padding:10px;border-radius:14px">
+<button onclick="unlock()">Unlock 💗</button>
+<p id="err" style="color:red"></p>
+</div>
+
+<div id="content" class="hidden">
+
+<!-- OPENING -->
+<div class="section">
+<div class="letter">
+<p>
+Meeting you was completely unexpected, <span class="name">Uddipana</span>.  
+I never thought I would fall for anyone again.  
+I never thought I’d feel like myself again.
+<br><br>
+But somehow… you made me feel like home.  
+You made me laugh like I used to.  
+You made me feel like <b>me</b> again.
+<br><br>
+Sometimes it honestly feels like the universe quietly decided —  
+<i>“yeah… these two should meet.”</i> ✨
+<br><br>
+So before this year ends…  
+I made something for you 💗
+</p>
+</div>
+</div>
+
+<!-- IMAGE SECTIONS (your photos) -->
+<div class="section">
+<img src="photo6.jpg">
+<h2>That brown & that smile 🤎</h2>
+<p>
+<span class="name">Uddipana</span>, that brown suits you perfectly.  
+And that smile… uff.  
+Soft, warm, and unfairly beautiful.
+</p>
+</div>
+
+<div class="section">
+<div class="double">
+<img src="photo7.jpg">
+<img src="photo8.jpg">
+</div>
+<h2>Orange + you = unfair 😭🧡</h2>
+<p>
+Your mehendi, those bangles, that orange saree —  
+you KNOW how much I love orange on you.  
+Traditional looks were never meant to hit this hard.
+</p>
+</div>
+
+<div class="section">
+<img src="photo9.jpg">
+<h2>Like a fairy ✨</h2>
+<p>
+That pink saree, <span class="name">Uddipana</span>…  
+You looked unreal.  
+Soft, graceful, and straight out of a dream.
+</p>
+</div>
+
+<div class="section">
+<img src="photo10.jpg">
+<h2>A quiet wish 🥺💗</h2>
+<p>
+Sometimes I wish I was there —  
+to see your sleepy face,  
+then hide under that blanket and cuddle you back to sleep.
+</p>
+</div>
+
+<div class="section">
+<img src="photo11.jpg">
+<h2>Trial room pics 😌</h2>
+<p>
+I love when you send me trial room photos.  
+It makes me feel special —  
+like my opinion really matters to you.
+</p>
+</div>
+
+<div class="section">
+<img src="photo12.jpg">
+<h2>Purple & that lipstick 💜</h2>
+<p>
+That purple, those earrings, that lipstick —  
+<span class="name">Uddipana</span>, I forgot how to breathe for a second.
+</p>
+</div>
+
+<div class="section">
+<img src="photo13.jpg">
+<h2>My favourite 😌💗</h2>
+<p>
+You know this is my favourite dress.  
+And when you set this as your caller profile pic…  
+yeah, that’s why I sometimes get distracted when you call 😂💗
+</p>
+</div>
+
+<!-- QUESTION -->
+<div class="section" id="question">
+<h2>One question…</h2>
+<p>
+As we step into 2026 —  
+<span class="name">Uddipana</span>, will you be with me… forever? 💖
+</p>
+<button onclick="sayNo()">No 😤</button>
+<button onclick="sayYes()">Yes, of course 💗</button>
+</div>
+
+<div class="section hidden" id="nope">
+<h2>😠 Excuse me??</h2>
+<p>
+How dare you click no.  
+I’m not leaving you.  
+Try again 😌💗
+</p>
+<button onclick="reset()">Okay okay 🙄</button>
+</div>
+
+<div class="section hidden" id="yes">
+<h2>Great choice 😌💖</h2>
+<p>
+Correct answer detected.  
+Proceeding with love…
+</p>
+<div class="big-love">I LOVE YOU 💖</div>
+<p style="text-align:center">
+Happy New Year, <span class="name">Uddipana</span> ✨🥂  
+Let’s make 2026 ours.
+</p>
+</div>
+
+</div>
+
+<script>
+function unlock(){
+if(pass.value.toLowerCase()==="baby"){
+lock.style.display="none";
+content.classList.remove("hidden");
+music.play();
+startSnow();
+}else err.innerText="Nope 😌 try again";
+}
+
+function sayNo(){
+question.classList.add("hidden");
+nope.classList.remove("hidden");
+}
+
+function reset(){
+nope.classList.add("hidden");
+question.classList.remove("hidden");
+}
+
+function sayYes(){
+question.classList.add("hidden");
+yes.classList.remove("hidden");
+fireworks();
+}
+
+function startSnow(){
+for(let i=0;i<40;i++){
+let s=document.createElement("div");
+s.className="snow";
+s.innerText="❄️";
+s.style.left=Math.random()*100+"vw";
+s.style.animationDuration=5+Math.random()*5+"s";
+document.body.appendChild(s);
+}
+}
+
+function fireworks(){
+alert("🎆 BOOM! 2026 is ours 🎆");
+}
+</script>
+
+</body>
+</html>
