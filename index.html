@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Entering 2026 With Uddipana 💖</title>
+<title>For Uddipana 💖</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
@@ -15,97 +15,75 @@ font-family:'Quicksand',sans-serif;
 overflow-x:hidden;
 }
 
-.section{
+.container{
 max-width:440px;
-margin:30px auto;
+margin:auto;
+padding:20px;
+text-align:center;
+}
+
+.card{
 background:white;
-border-radius:28px;
-padding:24px;
-box-shadow:0 25px 50px rgba(0,0,0,.2);
-animation:fade .9s ease;
+border-radius:26px;
+padding:22px;
+margin:20px 0;
+box-shadow:0 20px 45px rgba(0,0,0,.18);
+animation:fade .6s ease;
 }
 
 @keyframes fade{
-from{opacity:0;transform:translateY(30px)}
+from{opacity:0;transform:translateY(20px)}
 to{opacity:1;transform:none}
 }
 
 h2{
 font-family:'Pacifico',cursive;
 color:#ff3b8d;
-text-align:center;
 }
 
-.name{
-color:#ff1f78;
-font-weight:700;
-}
+.name{color:#ff1f78;font-weight:700}
 
-p{
-font-size:15.8px;
-line-height:1.75;
-}
-
-img{
-width:100%;
-border-radius:22px;
-margin:14px 0;
-}
-
-.double{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-}
-
-.letter{
-font-family:'Dancing Script',cursive;
-background:#fff6fb;
-border:2px dashed #ffb6d5;
-padding:18px;
-border-radius:18px;
-}
+p{font-size:15.5px;line-height:1.7}
 
 button{
 background:#ff4d8d;
 color:white;
 border:none;
 border-radius:18px;
-padding:12px 16px;
+padding:12px 18px;
 font-size:16px;
 cursor:pointer;
-margin-top:10px;
+margin-top:14px;
 }
 
-button.alt{
-background:#ffd6e6;
-color:#ff2b78;
+img{
+width:100%;
+border-radius:20px;
+margin-top:12px;
 }
 
-.hidden{display:none}
-
-.big-love{
-font-family:'Dancing Script',cursive;
-font-size:54px;
-text-align:center;
-color:#ff2b88;
-animation:pulse 1.6s infinite;
+.slider{
+display:flex;
+gap:12px;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+}
+.slider img{
+min-width:85%;
+scroll-snap-align:center;
 }
 
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.1)}
-100%{transform:scale(1)}
-}
-
-.snow{
+/* Falling hearts */
+.heart{
 position:fixed;
 top:-10px;
-color:white;
-animation:snowfall linear infinite;
+font-size:18px;
+opacity:0.25;
+animation:fall linear infinite;
+pointer-events:none;
 }
 
-@keyframes snowfall{
+@keyframes fall{
 to{transform:translateY(110vh)}
 }
 </style>
@@ -117,186 +95,162 @@ to{transform:translateY(110vh)}
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
+<div class="container">
+
 <!-- LOCK -->
-<div class="section" id="lock">
-<h2>🔒 Just for you, Uddipana</h2>
+<div class="card" id="lock">
+<h2>Only for you, Uddipana 💗</h2>
 <p>Password hint: what you are to me 😌</p>
 <input id="pass" type="password" style="width:100%;padding:10px;border-radius:14px">
-<button onclick="unlock()">Unlock 💗</button>
+<button onclick="unlock()">Unlock</button>
 <p id="err" style="color:red"></p>
 </div>
 
-<div id="content" class="hidden">
+<!-- CONTENT -->
+<div id="content" style="display:none">
 
-<!-- OPENING -->
-<div class="section">
-<div class="letter">
-<p>
-Meeting you was completely unexpected, <span class="name">Uddipana</span>.  
-I never thought I would fall for anyone again.  
-I never thought I’d feel like myself again.
-<br><br>
-But somehow… you made me feel like home.  
-You made me laugh like I used to.  
-You made me feel like <b>me</b> again.
-<br><br>
-Sometimes it honestly feels like the universe quietly decided —  
-<i>“yeah… these two should meet.”</i> ✨
-<br><br>
-So before this year ends…  
-I made something for you 💗
+<div class="card">
+<p style="font-family:'Dancing Script',cursive;font-size:18px">
+Meeting you was completely unexpected, <span class="name">Uddipana</span>.<br><br>
+I never thought I’d fall for anyone again.<br>
+I never thought I’d feel like myself again.<br><br>
+But you made me feel like home.<br>
+Like the universe wanted us to meet ✨
 </p>
-</div>
+<button onclick="next(1)">Open what I made for you 💝</button>
 </div>
 
-<!-- IMAGE SECTIONS (your photos) -->
-<div class="section">
+<div class="card" id="s1" hidden>
 <img src="photo6.jpg">
-<h2>That brown & that smile 🤎</h2>
 <p>
-<span class="name">Uddipana</span>, that brown suits you perfectly.  
-And that smile… uff.  
-Soft, warm, and unfairly beautiful.
+That brown… and that smile 🤎<br>
+<span class="name">Uddipana</span>, you look lovely as always.
 </p>
+<button onclick="next(2)">Next 💗</button>
 </div>
 
-<div class="section">
-<div class="double">
+<div class="card" id="s2" hidden>
+<div class="slider">
 <img src="photo7.jpg">
 <img src="photo8.jpg">
 </div>
-<h2>Orange + you = unfair 😭🧡</h2>
 <p>
-Your mehendi, those bangles, that orange saree —  
-you KNOW how much I love orange on you.  
-Traditional looks were never meant to hit this hard.
+Orange saree, mehendi & bangles 😭🧡<br>
+You KNOW how much I love orange on you.
 </p>
+<button onclick="next(3)">Next ✨</button>
 </div>
 
-<div class="section">
+<div class="card" id="s3" hidden>
 <img src="photo9.jpg">
-<h2>Like a fairy ✨</h2>
 <p>
-That pink saree, <span class="name">Uddipana</span>…  
-You looked unreal.  
-Soft, graceful, and straight out of a dream.
+Pink saree fairy moment ✨🧚‍♀️<br>
+I honestly couldn’t stop staring.
 </p>
+<button onclick="next(4)">Next 🥺</button>
 </div>
 
-<div class="section">
+<div class="card" id="s4" hidden>
 <img src="photo10.jpg">
-<h2>A quiet wish 🥺💗</h2>
 <p>
-Sometimes I wish I was there —  
-to see your sleepy face,  
-then hide under that blanket and cuddle you back to sleep.
+Sometimes I wish I was there…<br>
+under that blanket, cuddling you back to sleep 🥺💗
 </p>
+<button onclick="next(5)">Next 💞</button>
 </div>
 
-<div class="section">
+<div class="card" id="s5" hidden>
 <img src="photo11.jpg">
-<h2>Trial room pics 😌</h2>
 <p>
-I love when you send me trial room photos.  
-It makes me feel special —  
-like my opinion really matters to you.
+I love when you send trial room pics 😌<br>
+It makes me feel so special.
 </p>
+<button onclick="next(6)">Next 💫</button>
 </div>
 
-<div class="section">
+<div class="card" id="s6" hidden>
 <img src="photo12.jpg">
-<h2>Purple & that lipstick 💜</h2>
 <p>
-That purple, those earrings, that lipstick —  
-<span class="name">Uddipana</span>, I forgot how to breathe for a second.
+Purple, earrings & that lipstick 💜<br>
+I forgot how to breathe.
 </p>
+<button onclick="next(7)">Next 😌</button>
 </div>
 
-<div class="section">
+<div class="card" id="s7" hidden>
 <img src="photo13.jpg">
-<h2>My favourite 😌💗</h2>
 <p>
-You know this is my favourite dress.  
-And when you set this as your caller profile pic…  
-yeah, that’s why I sometimes get distracted when you call 😂💗
+My favourite dress 💗<br>
+No wonder I get distracted when you call 😂
 </p>
+<button onclick="next(8)">One question…</button>
 </div>
 
-<!-- QUESTION -->
-<div class="section" id="question">
-<h2>One question…</h2>
-<p>
-As we step into 2026 —  
-<span class="name">Uddipana</span>, will you be with me… forever? 💖
-</p>
-<button onclick="sayNo()">No 😤</button>
-<button onclick="sayYes()">Yes, of course 💗</button>
+<div class="card" id="question" hidden>
+<h2>Uddipana…</h2>
+<p>Will you be with me forever? 💖</p>
+<button onclick="nope()">No 😤</button>
+<button onclick="yes()">Yes, of course 💗</button>
 </div>
 
-<div class="section hidden" id="nope">
+<div class="card" id="angry" hidden>
 <h2>😠 Excuse me??</h2>
-<p>
-How dare you click no.  
-I’m not leaving you.  
-Try again 😌💗
-</p>
-<button onclick="reset()">Okay okay 🙄</button>
+<p>How dare you click no.<br>I’m not leaving you. Try again 😌</p>
+<button onclick="retry()">Okay okay 🙄</button>
 </div>
 
-<div class="section hidden" id="yes">
-<h2>Great choice 😌💖</h2>
+<div class="card" id="final" hidden>
+<h2 style="font-size:42px;font-family:'Dancing Script',cursive;color:#ff2b88">
+I LOVE YOU 💖
+</h2>
 <p>
-Correct answer detected.  
-Proceeding with love…
-</p>
-<div class="big-love">I LOVE YOU 💖</div>
-<p style="text-align:center">
-Happy New Year, <span class="name">Uddipana</span> ✨🥂  
-Let’s make 2026 ours.
+Happy New Year, <span class="name">Uddipana</span> ✨<br>
+Let’s enter 2026 together 🥂
 </p>
 </div>
 
+</div>
 </div>
 
 <script>
 function unlock(){
 if(pass.value.toLowerCase()==="baby"){
 lock.style.display="none";
-content.classList.remove("hidden");
+content.style.display="block";
 music.play();
-startSnow();
-}else err.innerText="Nope 😌 try again";
+startHearts();
+}else err.innerText="Nope 😌";
 }
 
-function sayNo(){
-question.classList.add("hidden");
-nope.classList.remove("hidden");
+function next(n){
+document.getElementById("s"+n)?.removeAttribute("hidden");
+document.getElementById("question")?.removeAttribute("hidden");
 }
 
-function reset(){
-nope.classList.add("hidden");
-question.classList.remove("hidden");
+function nope(){
+question.hidden=true;
+angry.hidden=false;
 }
 
-function sayYes(){
-question.classList.add("hidden");
-yes.classList.remove("hidden");
-fireworks();
+function retry(){
+angry.hidden=true;
+question.hidden=false;
 }
 
-function startSnow(){
-for(let i=0;i<40;i++){
-let s=document.createElement("div");
-s.className="snow";
-s.innerText="❄️";
-s.style.left=Math.random()*100+"vw";
-s.style.animationDuration=5+Math.random()*5+"s";
-document.body.appendChild(s);
-}
+function yes(){
+question.hidden=true;
+final.hidden=false;
 }
 
-function fireworks(){
-alert("🎆 BOOM! 2026 is ours 🎆");
+function startHearts(){
+for(let i=0;i<35;i++){
+let h=document.createElement("div");
+h.className="heart";
+h.innerText="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.animationDuration=(8+Math.random()*8)+"s";
+document.body.appendChild(h);
+}
 }
 </script>
 
