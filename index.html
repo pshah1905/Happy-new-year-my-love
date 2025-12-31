@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For Uddipana 💖</title>
+<title>For Uddipana 💗</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Quicksand:wght@400;600&family=Dancing+Script:wght@600&display=swap" rel="stylesheet">
 
 <style>
 *{box-sizing:border-box}
@@ -15,360 +15,325 @@ margin:0;
 height:100vh;
 overflow:hidden;
 font-family:'Quicksand',sans-serif;
-color:white;
-background:radial-gradient(circle at top,#2b0057,#120022 70%);
+background:linear-gradient(160deg,#1a002e,#2e004f,#14001f);
 display:flex;
 align-items:center;
 justify-content:center;
+color:white;
 }
 
-/* cute floating background */
+/* background floating elements */
 .bg{
 position:fixed;
-inset:0;
-z-index:0;
-pointer-events:none;
+top:-10vh;
 font-size:26px;
-opacity:.14;
-animation:float 22s linear infinite;
+opacity:0.15;
+animation:float linear infinite;
+pointer-events:none;
 }
 
 @keyframes float{
-from{transform:translateY(110vh)}
-to{transform:translateY(-130vh)}
+to{transform:translateY(120vh)}
 }
 
 .container{
 width:100%;
 max-width:420px;
-padding:18px;
-position:relative;
+padding:16px;
 z-index:2;
 }
 
 .card{
-background:rgba(255,255,255,0.13);
+background:rgba(255,255,255,0.18);
+backdrop-filter:blur(12px);
 border-radius:26px;
-padding:22px;
+padding:24px;
 text-align:center;
-box-shadow:0 30px 70px rgba(0,0,0,.55);
+box-shadow:0 30px 80px rgba(0,0,0,.5);
 animation:fade .6s ease;
 }
 
-.card.scrollable{
-max-height:75vh;
-overflow-y:auto;
-padding-right:8px;
-}
-
 @keyframes fade{
-from{opacity:0;transform:translateY(12px)}
+from{opacity:0;transform:translateY(18px)}
 to{opacity:1;transform:none}
 }
 
+.card.scroll{
+max-height:78vh;
+overflow-y:auto;
+}
+
 h2{
-font-family:'Pacifico',cursive;
-color:#ff9adf;
+font-family:'Playfair Display',serif;
+color:#ffd1ea;
 margin-bottom:12px;
 }
 
-.name{color:#ffd1eb;font-weight:700}
-
 p{
-font-size:15.5px;
-line-height:1.7;
+font-size:15.8px;
+line-height:1.75;
+}
+
+.name{
+color:#ffe2f3;
+font-weight:600;
 }
 
 img{
 width:100%;
 border-radius:18px;
-margin-top:14px;
-object-fit:contain;
+margin-top:16px;
 }
 
 button{
-background:#ff5fb8;
-color:white;
+background:#ff7fcf;
 border:none;
-border-radius:18px;
-padding:12px 22px;
+border-radius:22px;
+padding:13px 26px;
 font-size:16px;
+color:white;
+margin-top:20px;
 cursor:pointer;
-margin-top:18px;
+transition:.3s;
 }
+button:hover{transform:scale(1.04)}
 
-.big-love{
+.big{
 font-family:'Dancing Script',cursive;
 font-size:46px;
-color:#ffb3e6;
-animation:pulse 1.6s infinite;
+color:#ffd6ee;
 }
 
-@keyframes pulse{
-0%{transform:scale(1)}
-50%{transform:scale(1.08)}
-100%{transform:scale(1)}
-}
-
-/* falling hearts */
-.heart{
-position:fixed;
-top:-10px;
-font-size:18px;
-opacity:.25;
-animation:fall linear infinite;
-pointer-events:none;
-}
-
-@keyframes fall{
-to{transform:translateY(110vh)}
-}
-
-/* couple hug / kiss animation */
-.couple{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(0.6);
-font-size:70px;
-opacity:0;
-animation:coupleLove 2.5s ease forwards;
-z-index:3;
-}
-
-@keyframes coupleLove{
-0%{opacity:0;transform:translate(-50%,-50%) scale(0.6)}
-30%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-70%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
-100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}
-}
-
-/* fireworks canvas */
-#fireworks{
+canvas{
 position:fixed;
 inset:0;
-z-index:1;
 pointer-events:none;
+z-index:1;
 }
 </style>
 </head>
 
 <body>
 
-<div class="bg">💞 🧸 🌸 🍊 💕 🧸 🌷 🍊 💖 🌹</div>
-<canvas id="fireworks"></canvas>
+<canvas id="fire"></canvas>
 
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
-<div id="stage"></div>
+  <div id="stage"></div>
 </div>
 
 <script>
-let index=0;
 const stage=document.getElementById("stage");
+let i=0;
 
-const stages=[
+/* STORY FLOW */
+const scenes=[
 
-{html:`<h2>Happy New Year 2026 🎆</h2>
+{html:`<h2>Happy New Year 2026 ✨</h2>
 <p style="font-family:'Dancing Script',cursive;font-size:18px">
-As this year begins…<br>
-I made something just for you 💖
+I made something for you,<br>
+<span class="name">Uddipana</span> 💗
 </p>
-<button onclick="fireworks(); next()">Go on…</button>`},
+<button onclick="next()">Begin</button>`},
 
 {html:`<p style="font-family:'Dancing Script',cursive;font-size:18px">
-Meeting you was completely unexpected, <span class="name">Uddipana</span>.<br><br>
-I never planned this…<br>
-yet here we are ✨
+Meeting you was completely unexpected ✨<br><br>
+I never thought I’d fall for anyone again…<br>
+yet somehow, the universe had other plans.
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<p>
-You made me feel like myself again.<br>
-Like home 🏠💗
+You made me feel like home 🤍<br>
+Like myself again.<br><br>
+And I didn’t even realise when it happened.
+</p>
+<button onclick="next()">Next</button>`},
+
+{html:`<img src="photo1.jpg">
+<p>
+I thought you’d be shy…<br>
+but I was the one who got shy instead 😭💗
+</p>
+<button onclick="next()">Next</button>`},
+
+{html:`<div class="card scroll">
+<img src="photo2.jpg">
+<img src="photo3.jpg">
+<p>
+That little note… 📝<br>
+and the manga you got me 📖<br><br>
+Small gestures, but they meant everything to me.
+</p>
+<button onclick="next()">Next</button>
+</div>`},
+
+{html:`<img src="photo4.jpg">
+<p>
+You made this with your own hands 🎸<br>
+I genuinely didn’t expect it…<br>
+and it made me emotional.
+</p>
+<button onclick="next()">Next</button>`},
+
+{html:`<img src="photo5.jpg">
+<p>
+I’m so grateful I met you 🤍<br>
+Seeing you that day felt calm…<br>
+like something right finally happened.
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<img src="photo6.jpg">
 <p>
 That brown on you 🤎<br>
-And that smile… uff.
+and that smile…<br>
+beautiful as always, Uddipana.
 </p>
 <button onclick="next()">Next</button>`},
 
-{html:`<p>
-Sometimes I smile randomly.<br>
-Then I realise — it’s because of you 😌
-</p>
-<button onclick="next()">Next</button>`},
-
-{html:`<img src="photo7.jpg">
+{html:`<div class="card scroll">
+<img src="photo7.jpg">
 <img src="photo8.jpg">
 <p>
-Orange saree, mehendi & bangles 😭🧡<br>
-Traditional never looked this beautiful.
+Mehendi, bangles, orange saree 😭🧡<br>
+You know how much I love orange on you.<br>
+Traditional never looked this perfect.
 </p>
-<button onclick="next()">Next</button>`,scroll:true},
-
-{html:`<p>
-I blush when my parents tease me about you 🙈<br>
-And secretly… I love it.
-</p>
-<button onclick="next()">Next</button>`},
-
-{html:`<p>
-That nickname my mom gave you —<br>
-<b>Pannu</b> 💕<br>
-Still makes my heart warm.
-</p>
-<button onclick="next()">Next</button>`},
+<button onclick="next()">Next</button>
+</div>`},
 
 {html:`<img src="photo9.jpg">
 <p>
-Pink saree ✨<br>
-You looked like a fairy 🧚‍♀️
-</p>
-<button onclick="next()">Next</button>`},
-
-{html:`<p>
-Sometimes I imagine quiet moments with you…<br>
-no noise… just peace 🌙
+You looked like a fairy 🧚‍♀️✨<br>
+Soft. Elegant. Unreal in pink.
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<img src="photo10.jpg">
 <p>
 I wish I was there…<br>
-under that blanket… with you 🥺
+waking up to your face<br>
+and cuddling under that blanket 🥺💗
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<img src="photo11.jpg">
 <p>
-When you send trial room pics 😌<br>
-You make me feel chosen.
+When you send me trial room pics 😌<br>
+You make me feel special… chosen.
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<img src="photo12.jpg">
 <p>
-Purple, earrings & lipstick 💜<br>
-I literally forgot how to breathe.
+That purple 💜<br>
+those earrings…<br>
+that lipstick — I couldn’t look away.
 </p>
 <button onclick="next()">Next</button>`},
 
 {html:`<img src="photo13.jpg">
 <p>
-My favourite dress 💗<br>
-No wonder I get distracted when you call 😂
+This is my favourite dress on you 💗<br>
+And when you made it your caller profile pic…<br>
+yeah, that’s why I get distracted when you call 😂
 </p>
-<button onclick="next()">One last thing…</button>`},
+<button onclick="next()">Next</button>`},
 
-{html:`<p style="font-size:18px">
+{html:`<p style="font-family:'Dancing Script',cursive;font-size:18px">
 I want to ask you something… 🥺
 </p>
-<button onclick="question()">Okay…</button>`}
+<button onclick="ask()">Okay…</button>`}
 
 ];
 
-function show(obj){
+function show(el){
 stage.innerHTML="";
-const card=document.createElement("div");
-card.className="card";
-if(obj.scroll) card.classList.add("scrollable");
-card.innerHTML=obj.html;
-stage.appendChild(card);
+stage.appendChild(el);
 }
 
 function next(){
-if(index<stages.length) show(stages[index++]);
+if(i>=scenes.length) return;
+const c=document.createElement("div");
+c.className="card";
+c.innerHTML=scenes[i++].html;
+show(c);
 }
 
-function question(){
-show({
-html:`<h2>Uddipana…</h2>
-<p>Will you be with me forever? 💖</p>
+function ask(){
+showCard(`
+<h2>Uddipana 💖</h2>
+<p>Will you be with me forever?</p>
 <button onclick="no()">No 😤</button>
-<button onclick="yes()">Yes, of course 💗</button>`
-});
+<button onclick="yes()">Yes, of course 💗</button>
+`);
 }
 
 function no(){
-show({
-html:`<h2>😠 Hey!</h2>
+showCard(`
+<h2>😤 Hey!</h2>
 <p>
 Nice try.<br>
-I’m not leaving you 😌
+I’m not letting you go 😌
 </p>
-<button onclick="question()">Okay 🙄</button>`
-});
+<button onclick="ask()">Try again</button>
+`);
 }
 
 function yes(){
-coupleLove();
-setTimeout(()=>{
-show({
-html:`<div class="big-love">I LOVE YOU 💖</div>
+fireworks();
+showCard(`
+<div class="big">I LOVE YOU 💗</div>
 <p>
-Happy New Year, <span class="name">Uddipana</span> ✨<br>
-Thank you for choosing me.<br>
-Let’s enter 2026 together 🥂
-</p>`
-});
-hearts(70);
-},1200);
+Happy New Year 2026 ✨<br>
+Let’s step into it together.
+</p>
+`);
 }
 
-/* hearts */
-function hearts(n){
-for(let i=0;i<n;i++){
-let h=document.createElement("div");
-h.className="heart";
-h.innerText="💖";
-h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(9+Math.random()*8)+"s";
-document.body.appendChild(h);
-}
+/* helpers */
+function showCard(html){
+const c=document.createElement("div");
+c.className="card";
+c.innerHTML=html;
+show(c);
 }
 
-/* couple hug */
-function coupleLove(){
-const couple=document.createElement("div");
-couple.className="couple";
-const emojis=["💑","🫂"];
-couple.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-document.body.appendChild(couple);
-setTimeout(()=>couple.remove(),2600);
+/* background elements */
+const icons=["💗","🧸","🌸","🌷","🍊","💕"];
+for(let j=0;j<24;j++){
+let b=document.createElement("div");
+b.className="bg";
+b.innerText=icons[Math.floor(Math.random()*icons.length)];
+b.style.left=Math.random()*100+"vw";
+b.style.animationDuration=(20+Math.random()*12)+"s";
+document.body.appendChild(b);
 }
 
 /* fireworks */
 function fireworks(){
-const canvas=document.getElementById("fireworks");
-const ctx=canvas.getContext("2d");
-canvas.width=innerWidth;
-canvas.height=innerHeight;
+const c=document.getElementById("fire");
+const x=c.getContext("2d");
+c.width=innerWidth;c.height=innerHeight;
 let t=0;
-function boom(){
-ctx.clearRect(0,0,canvas.width,canvas.height);
-for(let i=0;i<80;i++){
-ctx.fillStyle=`hsl(${Math.random()*360},100%,60%)`;
-ctx.beginPath();
-ctx.arc(
-canvas.width/2+Math.cos(i)*t,
-canvas.height/2+Math.sin(i)*t,
-3,0,Math.PI*2);
-ctx.fill();
+function f(){
+x.clearRect(0,0,c.width,c.height);
+for(let i=0;i<90;i++){
+x.fillStyle=`hsl(${Math.random()*360},100%,65%)`;
+x.beginPath();
+x.arc(c.width/2+Math.cos(i)*t,c.height/2+Math.sin(i)*t,3,0,6.28);
+x.fill();
 }
 t+=2;
-if(t<120) requestAnimationFrame(boom);
+if(t<130) requestAnimationFrame(f);
 }
-boom();
+f();
 }
 
-/* start */
 music.play();
 next();
 </script>
