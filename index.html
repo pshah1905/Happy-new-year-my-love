@@ -12,43 +12,67 @@
 
 body{
 margin:0;
-background:linear-gradient(135deg,#0b0b2b,#1a0033);
+height:100vh;
+overflow:hidden;
 font-family:'Quicksand',sans-serif;
 color:white;
-overflow:hidden;
-height:100vh;
+background:radial-gradient(circle at top,#2b0057,#120022 70%);
 display:flex;
 align-items:center;
 justify-content:center;
+}
+
+/* cute floating background */
+.bg{
+position:fixed;
+inset:0;
+z-index:0;
+pointer-events:none;
+font-size:26px;
+opacity:.14;
+animation:float 22s linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(110vh)}
+to{transform:translateY(-130vh)}
 }
 
 .container{
 width:100%;
 max-width:420px;
 padding:18px;
+position:relative;
+z-index:2;
 }
 
 .card{
-background:rgba(255,255,255,0.09);
+background:rgba(255,255,255,0.13);
 border-radius:26px;
 padding:22px;
-box-shadow:0 25px 60px rgba(0,0,0,.5);
 text-align:center;
+box-shadow:0 30px 70px rgba(0,0,0,.55);
 animation:fade .6s ease;
 }
 
+.card.scrollable{
+max-height:75vh;
+overflow-y:auto;
+padding-right:8px;
+}
+
 @keyframes fade{
-from{opacity:0;transform:translateY(10px)}
+from{opacity:0;transform:translateY(12px)}
 to{opacity:1;transform:none}
 }
 
 h2{
 font-family:'Pacifico',cursive;
-color:#ff7ac8;
-margin-bottom:10px;
+color:#ff9adf;
+margin-bottom:12px;
 }
 
-.name{color:#ffb3de;font-weight:700}
+.name{color:#ffd1eb;font-weight:700}
 
 p{
 font-size:15.5px;
@@ -59,12 +83,11 @@ img{
 width:100%;
 border-radius:18px;
 margin-top:14px;
-max-height:55vh;
 object-fit:contain;
 }
 
 button{
-background:#ff4fa3;
+background:#ff5fb8;
 color:white;
 border:none;
 border-radius:18px;
@@ -74,32 +97,10 @@ cursor:pointer;
 margin-top:18px;
 }
 
-input{
-width:100%;
-padding:10px;
-border-radius:14px;
-border:none;
-margin-top:10px;
-font-size:16px;
-}
-
-.heart{
-position:fixed;
-top:-10px;
-font-size:18px;
-opacity:.22;
-animation:fall linear infinite;
-pointer-events:none;
-}
-
-@keyframes fall{
-to{transform:translateY(110vh)}
-}
-
 .big-love{
 font-family:'Dancing Script',cursive;
-font-size:44px;
-color:#ff9dd1;
+font-size:46px;
+color:#ffb3e6;
 animation:pulse 1.6s infinite;
 }
 
@@ -108,10 +109,54 @@ animation:pulse 1.6s infinite;
 50%{transform:scale(1.08)}
 100%{transform:scale(1)}
 }
+
+/* falling hearts */
+.heart{
+position:fixed;
+top:-10px;
+font-size:18px;
+opacity:.25;
+animation:fall linear infinite;
+pointer-events:none;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh)}
+}
+
+/* couple hug / kiss animation */
+.couple{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0.6);
+font-size:70px;
+opacity:0;
+animation:coupleLove 2.5s ease forwards;
+z-index:3;
+}
+
+@keyframes coupleLove{
+0%{opacity:0;transform:translate(-50%,-50%) scale(0.6)}
+30%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+70%{opacity:1;transform:translate(-50%,-50%) scale(1.1)}
+100%{opacity:0;transform:translate(-50%,-50%) scale(1.3)}
+}
+
+/* fireworks canvas */
+#fireworks{
+position:fixed;
+inset:0;
+z-index:1;
+pointer-events:none;
+}
 </style>
 </head>
 
 <body>
+
+<div class="bg">💞 🧸 🌸 🍊 💕 🧸 🌷 🍊 💖 🌹</div>
+<canvas id="fireworks"></canvas>
 
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
@@ -122,182 +167,210 @@ animation:pulse 1.6s infinite;
 </div>
 
 <script>
-let triedOnce=false;
 let index=0;
+const stage=document.getElementById("stage");
 
-const stages = [
+const stages=[
 
-`<h2>Happy New Year ✨</h2>
+{html:`<h2>Happy New Year 2026 🎆</h2>
 <p style="font-family:'Dancing Script',cursive;font-size:18px">
-As 2026 begins…<br>
+As this year begins…<br>
 I made something just for you 💖
 </p>
-<button onclick="next()">Go on…</button>`,
+<button onclick="fireworks(); next()">Go on…</button>`},
 
-`<p style="font-family:'Dancing Script',cursive;font-size:18px">
+{html:`<p style="font-family:'Dancing Script',cursive;font-size:18px">
 Meeting you was completely unexpected, <span class="name">Uddipana</span>.<br><br>
-I never thought I’d fall for anyone again…<br>
-yet here I am 💫
+I never planned this…<br>
+yet here we are ✨
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<p>
-Somehow, without trying,<br>
-you made me feel like myself again.<br>
+{html:`<p>
+You made me feel like myself again.<br>
 Like home 🏠💗
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo6.jpg">
+{html:`<img src="photo6.jpg">
 <p>
-That brown… that smile 🤎<br>
-Lovely as always.
+That brown on you 🤎<br>
+And that smile… uff.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo7.jpg"><img src="photo8.jpg">
+{html:`<p>
+Sometimes I smile randomly.<br>
+Then I realise — it’s because of you 😌
+</p>
+<button onclick="next()">Next</button>`},
+
+{html:`<img src="photo7.jpg">
+<img src="photo8.jpg">
 <p>
 Orange saree, mehendi & bangles 😭🧡<br>
 Traditional never looked this beautiful.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`,scroll:true},
 
-`<p>
+{html:`<p>
 I blush when my parents tease me about you 🙈<br>
-And yes… I love it.
+And secretly… I love it.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<p>
-I still remember the nickname my mom gave you…<br>
-<b>Pannu</b> 💕
+{html:`<p>
+That nickname my mom gave you —<br>
+<b>Pannu</b> 💕<br>
+Still makes my heart warm.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo9.jpg">
+{html:`<img src="photo9.jpg">
 <p>
-That pink saree ✨<br>
-You looked like a fairy.
+Pink saree ✨<br>
+You looked like a fairy 🧚‍♀️
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo10.jpg">
+{html:`<p>
+Sometimes I imagine quiet moments with you…<br>
+no noise… just peace 🌙
+</p>
+<button onclick="next()">Next</button>`},
+
+{html:`<img src="photo10.jpg">
 <p>
-Sometimes I wish I was there…<br>
+I wish I was there…<br>
 under that blanket… with you 🥺
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo11.jpg">
+{html:`<img src="photo11.jpg">
 <p>
 When you send trial room pics 😌<br>
 You make me feel chosen.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo12.jpg">
+{html:`<img src="photo12.jpg">
 <p>
-Purple, earrings & that lipstick 💜<br>
-Yeah… wow.
+Purple, earrings & lipstick 💜<br>
+I literally forgot how to breathe.
 </p>
-<button onclick="next()">Next</button>`,
+<button onclick="next()">Next</button>`},
 
-`<img src="photo13.jpg">
+{html:`<img src="photo13.jpg">
 <p>
 My favourite dress 💗<br>
 No wonder I get distracted when you call 😂
 </p>
-<button onclick="next()">One last thing…</button>`,
+<button onclick="next()">One last thing…</button>`},
 
-`<p style="font-size:18px">
+{html:`<p style="font-size:18px">
 I want to ask you something… 🥺
 </p>
-<button onclick="question()">Okay…</button>`
+<button onclick="question()">Okay…</button>`}
+
 ];
 
-function show(html){
-const stage=document.getElementById("stage");
+function show(obj){
 stage.innerHTML="";
-const c=document.createElement("div");
-c.className="card";
-c.innerHTML=html;
-stage.appendChild(c);
+const card=document.createElement("div");
+card.className="card";
+if(obj.scroll) card.classList.add("scrollable");
+card.innerHTML=obj.html;
+stage.appendChild(card);
 }
 
 function next(){
-if(index < stages.length){
-show(stages[index++]);
-}
+if(index<stages.length) show(stages[index++]);
 }
 
 function question(){
-show(`
-<h2>Uddipana…</h2>
+show({
+html:`<h2>Uddipana…</h2>
 <p>Will you be with me forever? 💖</p>
 <button onclick="no()">No 😤</button>
-<button onclick="yes()">Yes, of course 💗</button>
-`);
+<button onclick="yes()">Yes, of course 💗</button>`
+});
 }
 
 function no(){
-show(`
-<h2>😠 Hey!</h2>
+show({
+html:`<h2>😠 Hey!</h2>
 <p>
 Nice try.<br>
-I’m not leaving you.<br>
-Try again 😌
+I’m not leaving you 😌
 </p>
-<button onclick="question()">Okay 🙄</button>
-`);
+<button onclick="question()">Okay 🙄</button>`
+});
 }
 
 function yes(){
-show(`
-<div class="big-love">I LOVE YOU 💖</div>
+coupleLove();
+setTimeout(()=>{
+show({
+html:`<div class="big-love">I LOVE YOU 💖</div>
 <p>
 Happy New Year, <span class="name">Uddipana</span> ✨<br>
 Thank you for choosing me.<br>
 Let’s enter 2026 together 🥂
-</p>
-`);
-startHearts(true);
+</p>`
+});
+hearts(70);
+},1200);
 }
 
-function startHearts(more=false){
-for(let i=0;i<(more?60:30);i++){
+/* hearts */
+function hearts(n){
+for(let i=0;i<n;i++){
 let h=document.createElement("div");
 h.className="heart";
 h.innerText="💖";
 h.style.left=Math.random()*100+"vw";
-h.style.animationDuration=(9+Math.random()*10)+"s";
+h.style.animationDuration=(9+Math.random()*8)+"s";
 document.body.appendChild(h);
 }
 }
 
-show(`
-<h2>Only for Uddipana 💗</h2>
-<p>Password hint: what you are to me 😌</p>
-<input id="pass" type="password">
-<button onclick="unlock()">Unlock</button>
-<p id="err" style="color:#ffb3de"></p>
-`);
+/* couple hug */
+function coupleLove(){
+const couple=document.createElement("div");
+couple.className="couple";
+const emojis=["💑","🫂"];
+couple.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+document.body.appendChild(couple);
+setTimeout(()=>couple.remove(),2600);
+}
 
-function unlock(){
-const pass=document.getElementById("pass").value;
-if(!triedOnce && pass!=="Baby"){
-triedOnce=true;
-document.getElementById("err").innerText="Hmm… dramatic pause 😌 loading feelings…";
-return;
+/* fireworks */
+function fireworks(){
+const canvas=document.getElementById("fireworks");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;
+canvas.height=innerHeight;
+let t=0;
+function boom(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+for(let i=0;i<80;i++){
+ctx.fillStyle=`hsl(${Math.random()*360},100%,60%)`;
+ctx.beginPath();
+ctx.arc(
+canvas.width/2+Math.cos(i)*t,
+canvas.height/2+Math.sin(i)*t,
+3,0,Math.PI*2);
+ctx.fill();
 }
-if(pass==="Baby"){
+t+=2;
+if(t<120) requestAnimationFrame(boom);
+}
+boom();
+}
+
+/* start */
 music.play();
-startHearts();
-index=0;
 next();
-}else{
-document.getElementById("err").innerText="Nope 😏 try again";
-}
-}
 </script>
 
 </body>
